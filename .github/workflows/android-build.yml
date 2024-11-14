@@ -21,4 +21,14 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      -
+      - name: Download Gradle dependencies
+        run: ./gradlew build --no-daemon
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/*.apk
